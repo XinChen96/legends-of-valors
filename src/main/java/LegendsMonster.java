@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// a monster character in Legends: Monsters and Heroes
+// a monster character in Legends of valor
 public class LegendsMonster extends LegendsLivingCreature {
 
     private int damage;

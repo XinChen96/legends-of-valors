@@ -1,4 +1,4 @@
-// a game item to be bought, sold or used by player in Legends: Monsters and Heroes
+// a game item to be bought, sold or used by player in Legends of valor
 public class LegendsItem extends Item {
 
     enum Type {

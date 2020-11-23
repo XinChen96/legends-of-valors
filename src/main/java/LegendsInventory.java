@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+// a inventory to store game item for heroes in Legends of valor
 public class LegendsInventory extends Inventory{
 
     private List<LegendsWeapon> weapons;

@@ -1,4 +1,4 @@
-// an inaccessible cell in a game world of Legends: Monsters and Heroes
+// an inaccessible cell in a game world of Legends of valor
 public class LegendsInaccessibleCell extends LegendsCell{
     // constructor
     public LegendsInaccessibleCell(){

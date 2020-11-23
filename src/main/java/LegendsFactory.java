@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-// a market that stores game and game-related information in Legends: Monsters and Heroes
+// a market that stores game and game-related information to create objects for Legends of valor
 public class LegendsFactory extends Factory {
     public LegendsFactory(){
         super();

@@ -1,4 +1,4 @@
-// the world of the game
+// the grid world of the game
 abstract public class World {
 
     private int numRow;

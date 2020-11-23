@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-
-// a character of a game
+// a character or a living creature of a game
 abstract public class LivingCreature {
 
     private String name;

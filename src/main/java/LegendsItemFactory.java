@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// a market that stores item and item-related information in Legends: Monsters and Heroes
+// a factory that stores item and item-related information to create items in Legends of valor
 public class LegendsItemFactory extends LegendsFactory {
     private static List<Object> weaponAttributes;
     private static List<Object> armorAttributes;

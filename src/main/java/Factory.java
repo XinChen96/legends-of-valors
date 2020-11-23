@@ -1,6 +1,6 @@
 import java.util.List;
 
-// a market that stores game and game-related information
+// a factory that stores game and game-related information to create game objects
 abstract public class Factory {
 
     public Factory(){

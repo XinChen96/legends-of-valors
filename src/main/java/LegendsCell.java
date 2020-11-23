@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.List;
 
-// a cell in a game world of Legends: Monsters and Heroes
+// a cell in the grid world of legends of valor
 public class LegendsCell extends Cell {
 
     enum Type{

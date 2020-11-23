@@ -1,3 +1,4 @@
+// a game market in Legends of valor
 public class LegendsMarket extends Market{
 
     enum State {

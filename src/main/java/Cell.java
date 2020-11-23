@@ -1,4 +1,4 @@
-// a tile in a game world grid
+// a cell in a grid game world grid
 abstract public class Cell {
 
     private int row;

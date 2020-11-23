@@ -1,4 +1,4 @@
-// a mark that represents object on world map in Legends
+// a mark that represents object on world map in Legends and can be colored
 public class LegendsMark extends Mark{
 
     // constructors

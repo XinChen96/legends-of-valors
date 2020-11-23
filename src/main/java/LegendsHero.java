@@ -1,11 +1,8 @@
-import com.sun.javafx.charts.Legend;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-// a hero character of the game "Legends: Monsters and Heroes"
+// a hero character of the game Legends of valor
 public class LegendsHero extends LegendsLivingCreature {
 
     private enum State {

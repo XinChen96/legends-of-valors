@@ -1,4 +1,4 @@
-// a exoskeleton monster character in Legends: Monsters and Heroes
+// a exoskeleton monster character in Legends of valor
 public class LegendsExoskeleton extends LegendsMonster{
     // constructor
     public LegendsExoskeleton(){

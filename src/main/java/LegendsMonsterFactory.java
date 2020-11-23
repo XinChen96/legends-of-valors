@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-// a market that stores monster and monster-related information in Legends: Monsters and Heroes
+// a factory that stores monster and monster-related information in Legends of valor
 public class LegendsMonsterFactory extends LegendsFactory {
 
     private static List<Object> attributes;

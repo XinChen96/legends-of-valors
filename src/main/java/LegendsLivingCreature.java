@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-
-// a character in Legends: Monsters and Heroes
+// a character in Legends of valor
 public class LegendsLivingCreature extends LivingCreature {
 
     enum Type {

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// a market that stores hero and hero-related information in Legends: Monsters and Heroes
+// a market that stores hero and hero-related information and create heroes in Legends of valor
 public class LegendsHeroFactory extends LegendsFactory {
 
     private static List<Object> attributes;

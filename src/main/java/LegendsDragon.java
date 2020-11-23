@@ -1,4 +1,4 @@
-// a dragon monster character in Legends: Monsters and Heroes
+// a dragon monster character in Legends of valor
 public class LegendsDragon extends LegendsMonster{
     // constructor
     public LegendsDragon(){

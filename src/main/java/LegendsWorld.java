@@ -1,5 +1,3 @@
-import com.sun.javafx.charts.Legend;
-
 import java.util.*;
 
 // the world of the game "Legends: Monsters and Heroes" represented by a grid of specific dimensions
