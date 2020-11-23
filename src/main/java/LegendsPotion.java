@@ -1,5 +1,5 @@
 // a potion to be bought, sold or used by player in Legends: Monsters and Heroes
-public class LegendsPotion extends LegendsItem{
+public class LegendsPotion extends LegendsItem implements Buyable{
     private int attributeIncrease;
     private String attributeAffected;
 

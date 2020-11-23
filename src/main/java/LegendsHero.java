@@ -3,6 +3,7 @@ import com.sun.javafx.charts.Legend;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 // a hero character of the game "Legends: Monsters and Heroes"
 public class LegendsHero extends LegendsLivingCreature {
@@ -37,7 +38,7 @@ public class LegendsHero extends LegendsLivingCreature {
     private boolean displayingInfo;
 
     // constructors
-    public LegendsHero(){
+    public LegendsHero() {
         super();
         id = 0;
         mana = 0;
@@ -54,7 +55,7 @@ public class LegendsHero extends LegendsLivingCreature {
         displayingInfo = false;
     }
 
-    public LegendsHero(String name, int level, int hp, int mana, int strength, int agility, int dexterity, int money, int experience){
+    public LegendsHero(String name, int level, int hp, int mana, int strength, int agility, int dexterity, int money, int experience) {
         super(Type.HERO, name, level, hp);
         id = 0;
         this.mana = mana;
@@ -74,21 +75,27 @@ public class LegendsHero extends LegendsLivingCreature {
     public int getMana() {
         return mana;
     }
+
     public int getStrength() {
         return strength;
     }
+
     public int getAgility() {
         return agility;
     }
+
     public int getDexterity() {
         return dexterity;
     }
+
     public int getMoney() {
         return money;
     }
+
     public int getExperience() {
         return experience;
     }
+
     public LegendsInventory getInventory() {
         return inventory;
     }
@@ -118,11 +125,11 @@ public class LegendsHero extends LegendsLivingCreature {
     }
 
 
-    public void run(){
+    public void run() {
         running = true;
         displayingInfo = false;
-        do{
-            switch(state){
+        do {
+            switch (state) {
                 case IDLING:
                     idle();
                     break;
@@ -132,29 +139,30 @@ public class LegendsHero extends LegendsLivingCreature {
                 case TRADING:
                     getWorld().getMarket().setHero(this);
                     getWorld().getMarket().run();
-                    if(getWorld().getMarket().isQuitingGame()){
+                    if (getWorld().getMarket().isQuitingGame()) {
                         running = false;
                         getWorld().setRunning(false);
                     } else {
                         state = State.IDLING;
                     }
             }
-        }while(running);
+        } while (running);
     }
 
     // make actions when a hero is on map idling (not in fight or market)
-    public void idle(){
+    public void idle() {
         boolean idling;
 
         List<LegendsMonster> monsters = getMonstersInRange();
         System.out.println(getWorld());
-        if(!monsters.isEmpty()){
+        if (!monsters.isEmpty()) {
             System.out.println(getMonstersInformation(
                     Mark.getRedString("* Monsters encountered within attack range! *")));
         }
 
-        System.out.print(Mark.getRedString(notice));
-        if(displayingInfo){
+        System.out.print(notice);
+        notice = "";
+        if (displayingInfo) {
             System.out.println(getWorld().getHeroesInformation(this));
         }
 
@@ -177,7 +185,7 @@ public class LegendsHero extends LegendsLivingCreature {
 
         do {
             idling = false;
-            String input = Controller.INSTANCE.getIntStringInput(instruction,options, 1,4);
+            String input = Controller.INSTANCE.getIntStringInput(instruction, options, 1, 4);
             switch (input) {
                 case "1":
                     selectWeaponArmor();
@@ -188,7 +196,7 @@ public class LegendsHero extends LegendsLivingCreature {
                     running = false;
                     break;
                 case "3":
-                    if(!monsters.isEmpty()){
+                    if (!monsters.isEmpty()) {
                         monster = monsters.get(0);
                         state = State.FIGHTING;
                     } else {
@@ -232,7 +240,7 @@ public class LegendsHero extends LegendsLivingCreature {
                 case "t":
                     if (teleport()) {
                         running = false;
-                    }else{
+                    } else {
                         Controller.printWarning("Teleport cancelled \n");
                         idling = true;
                     }
@@ -248,7 +256,7 @@ public class LegendsHero extends LegendsLivingCreature {
                     break;
                 case "M":
                 case "m":
-                    if(getRow() == getWorld().getNumRow() - 1){
+                    if (getRow() == getWorld().getNumRow() - 1) {
                         state = State.TRADING;
                     } else {
                         Controller.printWarning("Market is at nexus cells of your side. You are not there\n");
@@ -265,67 +273,75 @@ public class LegendsHero extends LegendsLivingCreature {
                     getWorld().setRunning(false);
                     break;
             }
-        }while(idling);
+        } while (idling);
 
     }
 
     // make actions when hero is in fight
-    public void fight(){
+    public void fight() {
         // actions during when a hero is on map idling (not in fight or market)
-            boolean fighting;
+        boolean fighting;
 
-            System.out.println(getWorld());
-            System.out.print(Mark.getRedString(notice));
+        System.out.println(getWorld());
+        System.out.print(Mark.getRedString(notice));
+        notice = "";
 
-            if(displayingInfo){
-                System.out.println(getWorld().getHeroesInformation(this));
-                System.out.println(getMonstersInformation("The monster you are fighting:"));
+        System.out.println(Mark.getRedString("* In fight *"));
+        System.out.println(getWorld().getHeroesInformation(this));
+        System.out.println(getMonstersInformation("The monster you are fighting:"));
+
+
+        String[] options = new String[]{"1", "2", "3", "4", "i", "I"};
+
+        String instruction = "For " + Mark.getGreenString("Hero " + id + " " + getName()) + ", \n";
+        instruction += "Enter " + Mark.getGreenString("1") + " to change weapon/armor, " +
+                Mark.getGreenString("2") + " to use a potion, " +
+                Mark.getGreenString("3") + " to attack, " +
+                Mark.getGreenString("4") + " to cast a spell, \n" +
+                Mark.getGreenString("i") + " to display heroes & monsters info";
+
+        do {
+            fighting = false;
+            String input = Controller.INSTANCE.getIntStringInput(instruction, options, 1, 4);
+            switch (input) {
+                case "1":
+                    selectWeaponArmor();
+                    running = false;
+                    break;
+                case "2":
+                    selectPotion();
+                    running = false;
+                    break;
+                case "3":
+                    attack(monster);
+                    if(monster.getHp() <= 0){
+                        notice += Mark.getRedString(monster.getName() + " died\n\n");
+                        monster = null;
+                        state = State.IDLING;
+                    }
+                    running = false;
+                    break;
+                case "4":
+                    System.out.println("not implemented cast spell yet");
+                    break;
+                case "I":
+                case "i":
+                    displayingInfo = !displayingInfo;
+                    break;
+                case "Q":
+                case "q":
+                    running = false;
+                    getWorld().setRunning(false);
+                    break;
             }
-
-            String[] options = new String[]{"1", "2", "3", "4", "i", "I"};
-
-            String instruction = "For " + Mark.getGreenString("Hero " + id + " " + getName()) + ", \n";
-            instruction += "Enter " + Mark.getGreenString("1") + " to change weapon/armor, " +
-                    Mark.getGreenString("2") + " to use a potion, " +
-                    Mark.getGreenString("3") + " to attack, " +
-                    Mark.getGreenString("4") + " to cast a spell, \n" +
-                    Mark.getGreenString("i") + " to display heroes & monsters info";
-
-            do {
-                fighting = false;
-                String input = Controller.INSTANCE.getIntStringInput(instruction,options, 1,4);
-                switch (input) {
-                    case "1":
-                        selectWeaponArmor();
-                        running = false;
-                        break;
-                    case "2":
-                        selectPotion();
-                        running = false;
-                        break;
-                    case "3":
-
-                        break;
-                    case "4":
-                        break;
-                    case "I":
-                    case "i":
-                        displayingInfo = !displayingInfo;
-                        break;
-                    case "Q":
-                    case "q":
-                        running = false;
-                        getWorld().setRunning(false);
-                        break;
-                }
-            }while(fighting);
+        } while (fighting);
     }
 
     // let player choose a lane and teleport to that lane
-    public boolean teleport(){
+    public boolean teleport() {
         boolean teleporting;
         do {
-            String instruction =  Mark.getGreenString("Teleporting to ...") + "\nEnter " +
+            String instruction = Mark.getGreenString("Teleporting to ...") + "\nEnter " +
                     Mark.getGreenString("1") + " for Top Lane, " +
                     Mark.getGreenString("2") + " for Middle Lane, " +
                     Mark.getGreenString("3") + " for Bottom Lane, " +
@@ -351,25 +367,25 @@ public class LegendsHero extends LegendsLivingCreature {
                 running = false;
                 getWorld().setRunning(false);
             }
-        }while(teleporting);
+        } while (teleporting);
 
         return true;
     }
 
 
     // get this hero's col position of a lane, either 0 or 1
-    public int getColInLane(){
-        if(getCol() == 0 || getCol()==3 || getCol() == 6) {
+    public int getColInLane() {
+        if (getCol() == 0 || getCol() == 3 || getCol() == 6) {
             return 0;
-        } else if(getCol() == 1 || getCol()==4 || getCol() == 7) {
+        } else if (getCol() == 1 || getCol() == 4 || getCol() == 7) {
             return 1;
         }
         return -1;
     }
 
     // move hero back to its own nexus
-    public boolean backToMyNexus(){
-        if(myNexus.getHero() != null) {
+    public boolean backToMyNexus() {
+        if (myNexus.getHero() != null) {
             return false;
         }
         moveTo(myNexus);
@@ -377,16 +393,20 @@ public class LegendsHero extends LegendsLivingCreature {
     }
 
     // buy an item and update money
-    public void buyItem(LegendsItem item){
-        money -= item.getCost();
+    public void buyItem(LegendsItem item) {
+        if (money > item.getCost()) {
+            money -= item.getCost();
 
-        System.out.println(Mark.getGreenString("Bought " + item.getType() + " " + item.getName() +
-                ", spent $" + item.getCost() + ", current balance: $" + money));
-        inventory.add(item);
+            System.out.println(Mark.getGreenString("Bought " + item.getType() + " " + item.getName() +
+                    ", spent $" + item.getCost() + ", current balance: $" + money));
+            inventory.add(item);
+        } else {
+            System.out.println(Mark.getRedString("Not enough money for " + item.getName() + ", current balance: $" + money));
+        }
     }
 
     // sell an item and update money
-    public void sellItem(int index){
+    public void sellItem(int index) {
         LegendsItem item = inventory.getItem(index);
         money += item.getCost();
         System.out.println(Mark.getGreenString("Sold " + item.getType() + " " + item.getName() +
@@ -395,7 +415,7 @@ public class LegendsHero extends LegendsLivingCreature {
     }
 
     // buy a spell and update money
-    public void sellSpell(int index){
+    public void sellSpell(int index) {
         LegendsSpell spell = inventory.getSpell(index);
         money += spell.getCost();
         System.out.println(Mark.getGreenString("Sold " + spell.getType() + " " + spell.getName() +
@@ -404,9 +424,9 @@ public class LegendsHero extends LegendsLivingCreature {
     }
 
     // select a weapon or armor
-    public boolean selectWeaponArmor(){
+    public boolean selectWeaponArmor() {
 
-        if(inventory.getArmors().isEmpty() && inventory.getWeapons().isEmpty()){
+        if (inventory.getArmors().isEmpty() && inventory.getWeapons().isEmpty()) {
             System.out.print(Mark.getRedString("You inventory is empty"));
         }
         System.out.print(LegendsItemFactory.itemTables(getInventory().getWeapons(),
@@ -421,24 +441,24 @@ public class LegendsHero extends LegendsLivingCreature {
 
             selecting = false;
             if (Controller.isInteger(input)) {
-                if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= inventory.getWeapons().size()){
+                if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= inventory.getWeapons().size()) {
                     weapon = (LegendsWeapon) inventory.getItem(Integer.parseInt(input) - 1);
-                    System.out.println(Mark.getGreenString("Equipped " + weapon.getType() + " " +weapon.getName()));
-                } else if (Integer.parseInt(input) > inventory.getWeapons().size()){
+                    System.out.println(Mark.getGreenString("Equipped " + weapon.getType() + " " + weapon.getName()));
+                } else if (Integer.parseInt(input) > inventory.getWeapons().size()) {
                     armor = (LegendsArmor) inventory.getItem(Integer.parseInt(input) - 1);
-                    System.out.println(Mark.getGreenString("Equipped " + armor.getType() + " " +armor.getName()));
+                    System.out.println(Mark.getGreenString("Equipped " + armor.getType() + " " + armor.getName()));
                 }
                 selecting = true;
             } else if (input.equals("q") || input.equals("Q")) {
                 running = false;
                 getWorld().setRunning(false);
             }
-        }while(selecting);
+        } while (selecting);
         return true;
     }
 
-    public boolean selectPotion(){
-        System.out.print(LegendsItemFactory.itemTables(null,null,
+    public boolean selectPotion() {
+        System.out.print(LegendsItemFactory.itemTables(null, null,
                 getInventory().getPotions()));
         boolean selecting;
         do {
@@ -458,33 +478,55 @@ public class LegendsHero extends LegendsLivingCreature {
                 running = false;
                 getWorld().setRunning(false);
             }
-        }while(selecting);
+        } while (selecting);
         return true;
     }
 
     // get information of all monsters within attack range
-    public String getMonstersInformation(String title){
+    public String getMonstersInformation(String title) {
         List<LegendsMonster> monsters = getMonstersInRange();
-        if(!monsters.isEmpty()){
-            return LegendsMonsterFactory.table(title,monsters);
+        if (!monsters.isEmpty()) {
+            return LegendsMonsterFactory.table(title, monsters);
         }
         return null;
     }
 
     // get all monsters within attack range of this hero
-    public List<LegendsMonster> getMonstersInRange(){
+    public List<LegendsMonster> getMonstersInRange() {
         List<LegendsMonster> monsters = new ArrayList<>();
-        if(getWorld().getGrid()[getRow()][getCol()].getMonster() != null){
+        if (getWorld().getGrid()[getRow()][getCol()].getMonster() != null) {
             monsters.add(getWorld().getGrid()[getRow()][getCol()].getMonster());
         }
-        for(LegendsCell cell : getWorld().getNeighborCells(getRow(),getCol())){
-            //System.out.println(cell.getType() +  " " +cell.getRow() + " " + cell.getCol() );
-            if(cell.getMonster() != null){
-                //System.out.println(cell.getMonster() );
+        for (LegendsCell cell : getWorld().getNeighborCells(getRow(), getCol())) {
+            if (cell.getMonster() != null) {
                 monsters.add(cell.getMonster());
             }
         }
         return monsters;
+    }
+
+
+    public void attack(LegendsMonster monster) {
+        int inflictedDamage = 0;
+        int heroDamage = strength + ((weapon == null) ? 0 : weapon.getDamage());
+        int totalDamage = heroDamage - monster.getDefense();
+
+        int dodgeChance = (int) (monster.getDodgeChance() * 0.01 * 100);
+
+        Random random = new Random();
+        if (random.nextInt(100) > dodgeChance - 1) {
+            inflictedDamage = (int) (totalDamage * 0.05);
+        } else {
+            notice += Mark.getYellowString("I attacked " + monster.getName() + ". Attack dodged. No damage inflicted\n");
+            return;
+        }
+
+        if (inflictedDamage <= 0) {
+            notice += Mark.getYellowString("I attacked " + monster.getName() + ". No damage inflicted\n");
+        } else {
+            monster.setHp(monster.getHp() - inflictedDamage);
+            notice += Mark.getYellowString("I attacked " + monster.getName() + ". Inflicted damage: " + inflictedDamage + "\n");
+        }
     }
 
 }

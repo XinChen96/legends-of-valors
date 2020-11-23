@@ -1,5 +1,3 @@
-import com.sun.javafx.charts.Legend;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,5 @@
 // a lightning spell to be bought, sold or used by player in Legends: Monsters and Heroes
-public class LegendsLightningSpell extends LegendsSpell{
+public class LegendsLightningSpell extends LegendsSpell implements Buyable{
     // constructors
     public LegendsLightningSpell() {
     }

@@ -1,5 +1,5 @@
 // a weapon to be bought, sold or used by player in Legends: Monsters and Heroes
-public class LegendsWeapon extends LegendsItem{
+public class LegendsWeapon extends LegendsItem implements Buyable{
 
     private int damage;
     private int requiredHands;

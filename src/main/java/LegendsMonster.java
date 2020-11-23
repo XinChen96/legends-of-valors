@@ -39,8 +39,10 @@ public class LegendsMonster extends LegendsLivingCreature {
         if (heroes.isEmpty()){
             moveDown();
         } else {
-            Random random = new Random();
-            attack(heroes.get(random.nextInt(heroes.size())));
+            if(getHp() > 0) {
+                Random random = new Random();
+                attack(heroes.get(random.nextInt(heroes.size())));
+            }
         }
 
     }
@@ -61,21 +63,28 @@ public class LegendsMonster extends LegendsLivingCreature {
     public void attack(LegendsHero hero) {
         int inflictedDamage = 0;
 
-        int dodgeChange = (int) (hero.getAgility() * 0.001 * 100);
+        int dodgeChance = (int) (hero.getAgility() * 0.001 * 100);
         Random random = new Random();
         if (random.nextInt(100) > dodgeChance - 1) {
             inflictedDamage = damage;
+        } else {
+            hero.setNotice(hero.getNotice() + "\n"+ Mark.getRedString(getName() + " attacked you (" + hero.getName() + "). Attack dodged. No damage inflicted\n\n"));
+            return;
         }
-        hero.setHp(hero.getHp() - inflictedDamage);
 
         if(hero.getArmor() != null){
             inflictedDamage -= hero.getArmor().getDamageReduction();
         }
 
         if(inflictedDamage <= 0){
-            hero.setNotice(getName() + " attacked you (" + hero.getName() + "). Attack dodged, no damage inflicted\n");
+            hero.setNotice(hero.getNotice() + "\n"+ Mark.getRedString(getName() + " attacked you (" + hero.getName() + "). No damage inflicted\n\n"));
         } else {
-            hero.setNotice(getName() + " attacked you (" + hero.getName() + "). Inflicted damage: " + inflictedDamage + "\n");
+            hero.setHp(hero.getHp() - inflictedDamage);
+            hero.setNotice(hero.getNotice() + "\n"+ Mark.getRedString(getName() + " attacked you (" + hero.getName() + "). Inflicted damage: " + inflictedDamage + "\n\n"));
+        }
+
+        if(hero.getHp() <= 0){
+            hero.backToMyNexus();
         }
     }
 }

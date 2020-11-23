@@ -125,6 +125,7 @@ public class LegendsGame extends Game implements Runnable{
 
     public void initializeHeroFactory() {
         // add warriors
+        heroFactory.addWarrior("Almighty_God", 1000, 10000, 10000, 10000, 10000, 10);
         heroFactory.addWarrior("Gaerdal_Ironhand", 100, 700, 500, 600, 1354, 7);
         heroFactory.addWarrior("Sehanine_Monnbow", 600, 700, 800, 500, 2500, 8);
         heroFactory.addWarrior("Muamman_Duathall", 300, 900, 500, 750, 2546, 6);

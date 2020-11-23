@@ -128,7 +128,7 @@ public class LegendsWorld extends World implements Runnable{
                 System.out.println();
                 if(running) {
                     hero.run();
-                    hero.setNotice("");
+
                 }
             }
 

@@ -1,5 +1,5 @@
 // a armor to be bought, sold or used by player in Legends: Monsters and Heroes
-public class LegendsArmor extends LegendsItem{
+public class LegendsArmor extends LegendsItem implements Buyable{
 
     private int damageReduction;
 

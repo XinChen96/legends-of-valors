@@ -60,6 +60,12 @@ public class LegendsCell extends Cell {
     }
 
     public String[] getCell() {
+        if(monster != null && monster.getHp() <= 0){
+            monster = null;
+        }
+        if(hero != null && hero.getHp() <= 0){
+            hero.setHp(100 * hero.getLevel());
+        }
         cell[0] = cell[2] = mark + " - " + mark + " - " + mark;
         cell[1] = "|" + getContent() + "|";
         return cell;
