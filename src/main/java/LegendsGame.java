@@ -1,5 +1,5 @@
-// the game "Legends: Monsters and Heroes"
-public class LegendsGame extends Game implements Runnable{
+// the game "Legends: Monsters and Heroes"å
+public class LegendsGame extends RPGGame implements Runnable{
 
     private enum State {
         STARTING,
